@@ -1,1 +1,1 @@
-# wialon
+# wialon_bot
