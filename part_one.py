@@ -1,6 +1,7 @@
 import openpyxl
 import datetime
 
+
 book = openpyxl.open("report_2.xlsx")
 sheet = book.active
 nomer_avto, data_raboti, time_start, time_end, result, slovari = [], [], [], [], [], []
