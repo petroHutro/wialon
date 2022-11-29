@@ -1,5 +1,6 @@
 import datetime
 
+
 one_car_info = {
     'nm': '',
     'date': '',
