@@ -11,37 +11,22 @@ values = {
     'start': '',
     'end': ''
 }
-poisk_slov = ['Регистрационный номер ТС', 'Дата работы ТС', 'Талон', 'Талон']
+list_coordin = ['C8', 'B8', 'L8', 'M8']
 spiski = [nomer_avto, data_raboti, time_start, time_end]
 
 def return_result(file_name):
     book = openpyxl.open(file_name)
     sheet = book.active
     number_car = sheet['C8'].value
-    def search_word(name):
-        global flag
-        for row in sheet:
-            for value in row:
-                if value.value == name:
-                    coordin = value.coordinate
-                    coordin = sheet[coordin].offset(row=1, column=0).coordinate
-
-        if name == 'Талон' and flag == 0:
-            coordin = sheet[coordin].offset(row=1, column=0).coordinate
-            flag = 1
-        elif name == 'Талон':
-            coordin = sheet[coordin].offset(row=1, column=1).coordinate
-            flag = 0
-        return coordin
 
     def take_data(spisok, coordin):
         cells = sheet[coordin: f'{sheet[coordin].column_letter}{sheet.max_row}']
         for cell in cells:
             for el in cell:
-                if el.value != None:
-                    date = str(el.value)
-                    date = date.replace(' 00:00:00', '')
-                    spisok.append(date)
+                if el.value != None and sheet[f'F{el.row}'].value == None:
+                    data = str(el.value)
+                    data = data.replace(' 00:00:00', '')
+                    spisok.append(data)
         return spisok
 
     def data_format(data):
@@ -52,9 +37,8 @@ def return_result(file_name):
             except ValueError:
                 continue
 
-    for slova,spisok in zip(poisk_slov, spiski):
-        coordin = search_word(slova)
-        take_data(spisok, coordin)
+    for coordin, spisok in zip(list_coordin, spiski):
+        print(take_data(spisok, coordin))
 
     for nomer, data, start, end in zip(nomer_avto, data_raboti, time_start, time_end):
         # global number_car
