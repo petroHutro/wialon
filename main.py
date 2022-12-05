@@ -16,7 +16,9 @@ def valid_id(id):
                 return 1
     return 0
 
+
 bot = telebot.TeleBot(token_bot)
+
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -27,6 +29,7 @@ def start(message):
     mess = f'Hello, {message.from_user.first_name}'
     bot.send_message(message.chat.id, f'{mess} \n{standart_mess}')
     bot.send_document(message.chat.id, file)
+
 
 @bot.message_handler(commands=['emptyReport'])
 def empty_report(message):
@@ -75,13 +78,6 @@ def handle_docs_photo(message):
     # filling_file_name = filling_file(f'C:\_wialon\wialo/{message.document.file_name}')
     # file = open(filling_file_name, 'rb')
     # bot.send_document(message.chat.id, file)
-
-
-
-
-
-
-
 
 
 bot.polling(none_stop=True)
