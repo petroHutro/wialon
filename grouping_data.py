@@ -1,4 +1,5 @@
 import datetime
+from Zapolnenie import the_end
 
 one_car_info = {
     'nm': '',
@@ -16,7 +17,7 @@ halt_list = []
 list_for_fillings = []
 new_spisok = []
 final_spisok = []
-flag = 0
+
 
 def sum_time(timelist):
     sum = datetime.timedelta()
@@ -29,10 +30,11 @@ def sum_time(timelist):
 
 
 def grouping(data_list):
-    global flag
+    # print(data_list)
     for car in data_list:
         for date in car:
             if date == []:
+                list_for_fillings.append({})
                 break
             time_delta = '0:05:30'
             mileage = 0.0
@@ -53,17 +55,22 @@ def grouping(data_list):
             list_for_fillings.append({'nm': date[0]['nm'], 'date': date[0]['start'][:10],'start': start, 'end': end,
                                       'mileage': mileage, 'duration': duration[:4], 'between': between[:4],
                                       'halt': halt[:4]})
-        flag -= 1
-
-    nm = list_for_fillings[0]['nm']
-    for nomer in list_for_fillings:
-        if nomer['nm'] == nm:
-            new_spisok.append(nomer.copy())
-        else:
-            final_spisok.append(new_spisok.copy())
-            new_spisok.clear()
-            new_spisok.append(nomer.copy())
-            nm = nomer['nm']
-    final_spisok.append(new_spisok.copy())
+        final_spisok.append(list_for_fillings.copy())
+        list_for_fillings.clear()
+    # print(final_spisok)
     return final_spisok
+    # print(list_for_fillings)
+    # return list_for_fillings
+    # nm = list_for_fillings[0]['nm']
+    # for nomer in list_for_fillings:
+    #     if nomer['nm'] == nm:
+    #         new_spisok.append(nomer.copy())
+    #     else:
+    #         final_spisok.append(new_spisok.copy())
+    #         new_spisok.clear()
+    #         new_spisok.append(nomer.copy())
+    #         nm = nomer['nm']
+    # final_spisok.append(new_spisok.copy())
+    # print(final_spisok)
+    # return final_spisok
 

@@ -44,6 +44,7 @@ def get_id_car(nm):
 
 
 def get_info_car(item):
+    print(item)
     print(item['nm'])
 
     params = '{"params":' \
@@ -60,8 +61,9 @@ def get_info_car(item):
     nm = get_id_car(item['nm'])
     if nm == 'No car':
         return []
-
+    print(nm)
     t_from = date_to_seconds(item['start'] + ' 00:00:00')
+    print(item['end'])
     t_to = date_to_seconds(item['end'] + ' 23:59:59')
     params = ('{'
               f'"reportResourceId":{ResourceId},'
@@ -143,10 +145,15 @@ def get_talon_time(talon):
 
 
 def facet(dates, start):
-    dif = dates[0] - start
+    if dates == []:
+        return []
+    # print(dates)
+    d = date_to_seconds(dates[0]['start'])
+    dif = abs(d - start)
     f = dates[0]
     for date in dates:
-        r = abs(date - start)
+        d = date_to_seconds(date['start'])
+        r = abs(d - start)
         if r < dif:
             dif = r
             f = date
@@ -155,7 +162,7 @@ def facet(dates, start):
             break
         else:
             dates.remove(date)
-    print(dates)
+    # print(dates)
     return dates
 
 
@@ -194,7 +201,11 @@ def info_car(grop, talon):
 def pars_web(info):
     params = param_pars(info)
     result = []
+    print(str(params)+'1')
+    print(str(info)+'2')
     for param, el in zip(params, info):
+        print(str(param)+':3')
+        print(str(el)+':4')
         data = info_car(param, el)
         if data:
             result.append(data)

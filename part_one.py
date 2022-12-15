@@ -38,7 +38,7 @@ def return_result(file_name):
                 continue
 
     for coordin, spisok in zip(list_coordin, spiski):
-        print(take_data(spisok, coordin))
+        take_data(spisok, coordin)
 
     for nomer, data, start, end in zip(nomer_avto, data_raboti, time_start, time_end):
         # global number_car

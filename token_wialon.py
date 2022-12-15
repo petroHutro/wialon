@@ -4,7 +4,7 @@ token_a = '6c88e28e1e258ae59f4188a472eb5cb76E2F0AA39350ACA692BFEACC1E5B503426EC9
 
 info = [
     {'name' : 'автотранс',
-     'token': '6c88e28e1e258ae59f4188a472eb5cb76E2F0AA39350ACA692BFEACC1E5B503426EC999F',
+     'token': '6c88e28e1e258ae59f4188a472eb5cb7779552E92031B535E0F768C6DC241AC4506A35ED',
      'url': 'https://glonass26.pro',
      'ResourceId': '547',
      'TemplateId': '5'},
