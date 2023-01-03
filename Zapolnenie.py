@@ -27,7 +27,7 @@ def the_end(list_for_fillings, file_name):
     def data_format(data):
         data = str(data)
         data = data.replace(' 00:00:00', '')
-        print(data)
+        # print(data)
         for format in format_dat:
             try:
                 data = datetime.datetime.strptime(data, format).date()
@@ -73,7 +73,7 @@ def the_end(list_for_fillings, file_name):
 
     for car in list_for_fillings:
         for date in car:
-            print(date)
+            # print(date)
             if date == {}:
                 break
             coordin = search(date['nm'], date['date'])

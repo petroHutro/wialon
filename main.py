@@ -8,13 +8,13 @@ import json
 
 
 def valid_username(username, file_name):
-    print(username)
+    # print(username)
     with open(file_name, "r", encoding='utf-8') as file:
         result = json.load(file)
         if result != {}:
             for el in result.keys():
                 if username == el:
-                    print('122')
+                    # print('122')
                     return 1
     return 0
 

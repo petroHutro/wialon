@@ -145,9 +145,9 @@ def get_talon_time(talon):
 
 
 def facet(dates, start):
+    el = ''
     if dates == []:
         return []
-    # print(dates)
     d = date_to_seconds(dates[0]['start'])
     dif = abs(d - start)
     f = dates[0]
@@ -157,12 +157,14 @@ def facet(dates, start):
         if r < dif:
             dif = r
             f = date
-    for date in dates:
-        if date == f:
+    list = []
+    for dat in dates:
+        if dat == f:
+            for el in list:
+                dates.remove(el)
             break
         else:
-            dates.remove(date)
-    # print(dates)
+            list.append(dat)
     return dates
 
 
@@ -194,7 +196,7 @@ def info_car(grop, talon):
             result.append(facet(pred_result.copy(), start))
             pred_result.clear()
             break
-    # print(result)
+    print(result)
     return result
 
 
