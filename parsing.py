@@ -6,6 +6,7 @@ from part_one import return_result
 from grouping_data import grouping
 from Zapolnenie import the_end
 from token_wialon import info
+from sorting_nm import valider_car
 
 
 token = ''
@@ -13,7 +14,6 @@ url = ''
 sid = ''
 ResourceId = ''
 TemplateId = ''
-
 
 def date_to_seconds(date):
     seconds = datetime.datetime.strptime(str(date), '%Y-%m-%d %H:%M:%S')
@@ -25,6 +25,8 @@ def request(svc, params='{}'):
     response = requests.post(url)
     if response.status_code == 200:
         response = response.json()
+        time.sleep(1)
+        print(response)
         return response
     return None
 
@@ -56,10 +58,12 @@ def get_info_car(item):
     svc = 'core/batch'
     response = request(svc, params)
     if not response:
+        print('1')
         return []
 
     nm = get_id_car(item['nm'])
     if nm == 'No car':
+        print('2')
         return []
     print(nm)
     t_from = date_to_seconds(item['start'] + ' 00:00:00')
@@ -78,16 +82,19 @@ def get_info_car(item):
     svc = 'report/exec_report'
     response = request(svc, params)
     if not response:
+        print('3')
         return []
 
     svc = 'report/get_report_status'
     response = request(svc)
     if not response:
+        print('4')
         return []
 
     svc = 'report/apply_report_result'
     response = request(svc)  # row
     if not response:
+        print('5')
         return []
 
     params = ('{"tableIndex":0,"config":{"type":"range","data":{"from":0,'
@@ -96,6 +103,7 @@ def get_info_car(item):
     svc = 'report/select_result_rows'
     response = request(svc, params)
     if not response:
+        print('6')
         return []
 
     params = ('{"tableIndex":0,"config":{"type":"row","data":{'
@@ -105,9 +113,9 @@ def get_info_car(item):
         svc = 'report/select_result_rows'
         response = request(svc, params)
         if not response:
+            print('7')
             return []
         result = []
-        # print(response)
         for i in response:
             result.append({'nm': item['nm'],
                            'start': i['c'][1]['t'],
@@ -117,6 +125,7 @@ def get_info_car(item):
                            'between': i['c'][5]})
         response.clear()
     except:
+        print('8')
         return []
     time.sleep(1)
     return result
@@ -170,6 +179,7 @@ def facet(dates, start):
 
 def info_car(grop, talon):
     car = get_info_car(grop)
+    print(car)
     if car == []:
         return car
     result = []
@@ -196,18 +206,17 @@ def info_car(grop, talon):
             result.append(facet(pred_result.copy(), start))
             pred_result.clear()
             break
-    print(result)
     return result
 
 
 def pars_web(info):
     params = param_pars(info)
     result = []
-    print(str(params)+'1')
-    print(str(info)+'2')
+    # print(str(params)+'1')
+    # print(str(info)+'2')
     for param, el in zip(params, info):
-        print(str(param)+':3')
-        print(str(el)+':4')
+        # print(str(param)+':3')
+        # print(str(el)+':4')
         data = info_car(param, el)
         if data:
             result.append(data)
@@ -250,6 +259,8 @@ def get_report(name, file_name):
     global sid
     global ResourceId
     global TemplateId
+    valider_car(file_name, name)
+    # time.sleep(5)
     for i in info:
         if i['name'] == name.lower():
             url = i['url']
@@ -259,7 +270,12 @@ def get_report(name, file_name):
     if url == '':
         return 'bad company'
     set_locale()
+    # valider_car(file_name, name)
+    print('^^^')
+
     rezult = the_end(grouping(pars_web(return_result('Report/' + file_name))), 'Report/' + file_name)
+    print('^^^')
+    loguot_wialon()
     if rezult != []:
         d = ''
         for i in rezult:

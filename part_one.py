@@ -2,7 +2,6 @@ import openpyxl
 import datetime
 
 
-nomer_avto, data_raboti, time_start, time_end, result, slovari = [], [], [], [], [], []
 flag = 0
 format_dat = ['%Y-%m-%d', '%d.%m %Y', '%d %m.%Y', '%d %m %Y', ' %d.%m.%Y']
 values = {
@@ -12,9 +11,10 @@ values = {
     'end': ''
 }
 list_coordin = ['C8', 'B8', 'L8', 'M8']
-spiski = [nomer_avto, data_raboti, time_start, time_end]
 
 def return_result(file_name):
+    nomer_avto, data_raboti, time_start, time_end, result, slovari = [], [], [], [], [], []
+    spiski = [nomer_avto, data_raboti, time_start, time_end]
     book = openpyxl.open(file_name)
     sheet = book.active
     number_car = sheet['C8'].value
@@ -58,4 +58,5 @@ def return_result(file_name):
             number_car = nomer
     result.append(slovari.copy())
     book.close()
+    print(result)
     return result

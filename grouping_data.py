@@ -1,23 +1,6 @@
 import datetime
 from Zapolnenie import the_end
 
-one_car_info = {
-    'nm': '',
-    'date': '',
-    'start': '',
-    'end': '',
-    'mileage': '',
-    'duration': '',
-    'between': '',
-    'halt': '',
-}
-duration_list = []
-between_list = []
-halt_list = []
-list_for_fillings = []
-new_spisok = []
-final_spisok = []
-
 
 def sum_time(timelist):
     sum = datetime.timedelta()
@@ -30,6 +13,22 @@ def sum_time(timelist):
 
 
 def grouping(data_list):
+    one_car_info = {
+        'nm': '',
+        'date': '',
+        'start': '',
+        'end': '',
+        'mileage': '',
+        'duration': '',
+        'between': '',
+        'halt': '',
+    }
+    duration_list = []
+    between_list = []
+    halt_list = []
+    list_for_fillings = []
+    new_spisok = []
+    final_spisok = []
     # print(data_list)
     for car in data_list:
         for date in car:
